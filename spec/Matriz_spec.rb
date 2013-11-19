@@ -11,6 +11,7 @@ describe Matriz do
     @matriz5 = Matriz.new([[ Fraccion.new(1,2) , Fraccion.new(1,3)],[Fraccion.new(2,4), Fraccion.new(1,5)]])
     @matriz_densa = MatrizDensa.new([[0,0,0],[1,2,3],[1,1,1]])
     @matriz_dispersa = MatrizDispersa.new([[0,0,0],[1,2,3],[0,0,0]])
+    @matriz_densa2 = MatrizDensa.new([[0,0,0],[1,2,-3],[-1,-1,-1]])
   end  
 
 describe "Suma de Matrices" do
@@ -83,6 +84,13 @@ describe "Se deben multiplar las matrices dispersas" do
 	it "Se deben multplicar las matrices dispersas" do
 	@resultado = @matriz_dispersa * @matriz_dispersa
       	@resultado.should == MatrizDispersa.new([[0,0,0],[2,4,6],[0,0,0]])
+        end
+end
+
+describe "Si el resultado de dos matrices densas resulta disperso, usar este" do
+	it "Si el resultado de dos matrices densas resulta disperso, usar este" do
+	@resultado = @matriz_densa + @matriz_densa2
+      	@resultado.should == MatrizDispersa.new([[0, 0, 0], [2, 4, 0], [0, 0, 0]])
         end
 end
 
