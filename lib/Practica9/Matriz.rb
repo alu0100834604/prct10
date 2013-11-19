@@ -52,12 +52,12 @@ def *(m2)
                 for j in 0...m2.columnas
                         temp = Array.new(dimensiones[0][0])
                         val1 = @matriz[i][0]
-                        val2 = m2[0][j]
+                        val2 = m2.[](0,j)
 			#temp[0] = @matriz[i][0] * m2[0][j];
 			temp[0] = val1 * val2;
                         for k in 1...@columnas
                                 val1 = @matriz[i][k]
-                                val2 = m2.matriz[k][j]
+                                val2 = m2.[](k,j)
 				temp2 =  val1 * val2
                                 temp[k] = temp2
                         end
@@ -88,9 +88,9 @@ def [](i,j)
   @matriz[i][j]
 end
 
-def [](i)
-  @matriz[i]
-end
+#def [](i)
+#  @matriz[i]
+#end
 
 def == (other)
  	filas_final = @filas
@@ -98,7 +98,7 @@ def == (other)
 	resultado = true
 	for i in 0...@filas
 		for j in 0...@columnas
-			resultado &= (@matriz[i][j] == other.matriz[i][j])
+			resultado &= (@matriz[i][j] == other.[](i,j))
 		end 
 	end
 	return(resultado)
@@ -133,6 +133,7 @@ end
 
 class MatrizDispersa < Matriz
 	def initialize(matriz_entrada)
+#puts(matriz_entrada[0].class)
 		@hash_no_nulos = {}
 		@filas = matriz_entrada.length
 		@columnas = matriz_entrada[0].length
@@ -163,34 +164,17 @@ class MatrizDispersa < Matriz
 					resultado[i][j] = self.[](i,j) +other.matriz[i][j]
 				end 
 			end
-			return MatrizDispersa.New(Matriz.new(resultado))						
+			return MatrizDensa.new(resultado)						
 		elsif(other.is_a?MatrizDispersa)
+			
 		end
 	end
 end
 
 class MatrizDensa < Matriz
-		def initialize(matriz_entrada)
-		@hash_no_nulos = {}
-		@filas = matriz_entrada.length
-		@columnas = matriz_entrada[0].length
-		for i in 0...@filas
-			for j in 0...@columnas
-				@hash_no_nulos[i.to_s+"-"+j.to_s] = matriz_entrada[i][j]
-			end
-		end
-	end
-
-	def []=(i,j,x)
-	   @hash_no_nulos[i.to_s+"-"+j.to_s] = x
-	end
-
-	def [](i,j)
-	  @hash_no_nulos[i.to_s+"-"+j.to_s]
-	end
 
 	def +(other)
-		puts(other.class)
+		#puts(other.class)
 		#devolucion = Matriz
 		if((other.is_a?MatrizDispersa))
 			filas_final = @filas
@@ -203,6 +187,16 @@ class MatrizDensa < Matriz
 			end
 			return MatrizDensa.New(Matriz.new(resultado))						
 		elsif(other.is_a?MatrizDensa)
+			muestra_matriz(@matriz)
+			filas_final = @filas
+			columnas_final = @columnas
+			resultado = Array.new(filas_final){Array.new(columnas_final, 0)}
+			for i in 0...@filas
+				for j in 0...@columnas
+					resultado[i][j] = @matriz[i][j] +other.matriz[i][j]
+				end 
+			end
+			return MatrizDensa.new(resultado)			
 		end
 	end	
 end
