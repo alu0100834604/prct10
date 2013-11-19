@@ -36,24 +36,45 @@ describe "Suma de matrices con fracciones" do
 end
 
 
-describe "Se suma la matrices densa y dispersa" do
-	it "Se deben sumar matrices  correctamente" do
-	@resultado = @matriz_densa +  @matriz_dispersa
-      	@resultado.should == Matriz.new([[0,0,0],[1,2,3],[1,1,1]])
-      	end
-end
 
-
-describe "Se multiplcar la matrices densas" do
-	it "Se deben multiplicar matrices correctamente" do
-	@resultado = @matriz_dispersa * @matriz_densa
-      	@resultado.should == Matriz.new([[0,0,0],[0,0,0],[0,0,0]])
+describe "Se deben sumar matrices densas" do
+	it "Se deben sumar matrices densas" do
+	@resultado = @matriz_densa + @matriz_densa
+      	@resultado.should == Matriz.new([[0,0,0],[2,4,6],[2,2,2]])
         end
 end
 
 describe "Se deben sumar matrices dispersas" do
 	it "Se deben sumar matrices dispersas" do
 	@resultado = @matriz_dispersa + @matriz_dispersa
+      	@resultado.should == Matriz.new([[0,0,0],[2,4,6],[0,0,0]])
+        end
+end
+
+describe "Se deben sumar matrices dispersa y densas" do
+	it "Se deben sumar matrices dispersa y densa" do
+	@resultado = @matriz_dispersa + @matriz_densa
+      	@resultado.should == Matriz.new([[0,0,0],[2,4,6],[1,1,1]])
+        end
+end
+
+describe "Se multiplcar la matrice dispersa y densa" do
+	it "Se deben multiplicar matrices correctamente" do
+	@resultado = @matriz_dispersa * @matriz_densa
+      	@resultado.should == Matriz.new([[0,0,0],[5,7,9],[0,0,0]])
+        end
+end
+
+describe "Se deben multiplar las matrices densas" do
+	it "Se deben sumar matrices densas" do
+	@resultado = @matriz_densas * @matriz_densas
+      	@resultado.should == Matriz.new([[0,0,0],[5,7,9],[2,3,4]])
+        end
+end
+
+describe "Se deben multiplar matrices dispersas" do
+	it "Se deben sumar matrices dispersas" do
+	@resultado = @matriz_dispersas * @matriz_dispersas
       	@resultado.should == Matriz.new([[0,0,0],[2,4,6],[0,0,0]])
         end
 end
