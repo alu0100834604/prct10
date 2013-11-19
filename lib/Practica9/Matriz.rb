@@ -183,26 +183,23 @@ class MatrizDispersa < Matriz
 	  val = (val == nil)?0:val
 	end
 
-	def to_Densa()
-	   	matriz =  Array.new(@filas){Array.new(@columnas)}
-	   	for i in 0...@filas
-	       		for j in 0...@columnas
-		  		matriz[i][j] = self.[](i,j)
-	       		end
-	   	end
-		return MatrizDensa.new(matriz)
-	end
-
 	def comprobar_tipo_return()
 		if(porcentaje_ceros < 0.6)
-			return matriz
+			return self
 		elsif
-			to_Densa()
+		   	matriz =  Array.new(@filas){Array.new(@columnas)}
+		   	for i in 0...@filas
+		       		for j in 0...@columnas
+			  		matriz[i][j] = self.[](i,j)
+		       		end
+		   	end
+			devolucion = MatrizDensa.new(matriz)
+			return (devolucion)
 		end
 	end
 
 	def porcentaje_ceros()
-		return(Float(@hash_no_nulos.legth)/@filas*@columnas)
+		return(Float(@hash_no_nulos.length)/@filas*@columnas)
 	end
 
 	def +(other)
@@ -217,7 +214,7 @@ class MatrizDispersa < Matriz
 					resultado[i][j] = self.[](i,j) +other.matriz[i][j]
 				end 
 			end
-			return MatrizDensa.new(resultado)						
+			return MatrizDensa.new(resultado).comprobar_tipo_return()						
 		elsif(other.is_a?MatrizDispersa)
 			hash_final = {}
 			@hash_no_nulos.each do |key,valor|
@@ -230,7 +227,7 @@ class MatrizDispersa < Matriz
 				end
 				hash_final[key]=valor_final
 			end
-			return MatrizDispersa.new(hash_final)
+			return MatrizDispersa.new(hash_final).comprobar_tipo_return()
 		end
 	end
 
@@ -258,7 +255,7 @@ class MatrizDispersa < Matriz
                         	end
                         end
                         
-	 		return MatrizDensa.new(resultado)
+	 		return MatrizDensa.new(resultado).comprobar_tipo_return()
                elsif(other.is_a?MatrizDispersa)
 			filas_final = @filas
 			columnas_final = @columnas
@@ -284,7 +281,7 @@ class MatrizDispersa < Matriz
                         	end
                         end
                         
-	 		return MatrizDispersa.new(resultado2)
+	 		return MatrizDispersa.new(resultado2).comprobar_tipo_return()
                end	
         end
 end
@@ -301,9 +298,11 @@ class MatrizDensa < Matriz
 
 	def comprobar_tipo_return()
 		if(porcentaje_ceros >= 0.6)
-			return matriz
+			return self
 		elsif
-			to_Dispersa()
+			muestra_matriz(@matriz)
+			devolucion = MatrizDispersa.new(@matriz)
+			return(devolucion)
 		end
 	end
 
@@ -319,7 +318,7 @@ class MatrizDensa < Matriz
 					resultado[i][j] = other.[](i,j) + @matriz[i][j]
 				end 
 			end
-			return MatrizDensa.New(Matriz.new(resultado))						
+			return (MatrizDensa.New(resultado).comprobar_tipo_return())
 		elsif(other.is_a?MatrizDensa)
 			#muestra_matriz(@matriz)
 			filas_final = @filas
@@ -330,7 +329,8 @@ class MatrizDensa < Matriz
 					resultado[i][j] = @matriz[i][j] +other.matriz[i][j]
 				end 
 			end
-			return MatrizDensa.new(resultado)			
+			devolucion = MatrizDensa.new(resultado).comprobar_tipo_return()
+			return (devolucion)			
 		end
 	end
 	
@@ -358,7 +358,7 @@ class MatrizDensa < Matriz
                         	end
                         end
                         
-	 		return MatrizDensa.new(resultado)
+	 		return MatrizDensa.new(resultado).comprobar_tipo_return()
                elsif(other.is_a?MatrizDensa)
 			dimensiones=[[@filas, @columnas],[other.filas, other.columnas]]
 			filas_final = dimensiones[0][0]
@@ -380,7 +380,7 @@ class MatrizDensa < Matriz
 				        resultado[i][j] = temp.reduce(:+)
 				end
 			end
-			return MatrizDensa.new(resultado)
+			return MatrizDensa.new(resultado).comprobar_tipo_return()
                end	
         end
 end
