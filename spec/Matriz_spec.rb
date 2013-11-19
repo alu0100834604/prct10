@@ -4,12 +4,13 @@ require "Practica9/Fraccion.rb"
 describe Matriz do
  before :each do
     #@matriz1 = Matritz.new([1 , 2, 3],[4, 5 , 6],[7, 8, 9])
-
+    
     @matriz2 = Matriz.new([[1,2],[3,4]])
     @matriz3 = Matriz.new([[5, 6],[7,8]])
     @matriz4 = Matriz.new([[ Fraccion.new(1,2) , Fraccion.new(1,3)],[Fraccion.new(2,4), Fraccion.new(1,5)]])
     @matriz5 = Matriz.new([[ Fraccion.new(1,2) , Fraccion.new(1,3)],[Fraccion.new(2,4), Fraccion.new(1,5)]])
-
+    @matriz_densa = MatrizDensa.new([[0,0,0],[1,2,3],[1,1,1]])
+    @matriz_dispersa MatrizDispersa.new([[0,0,0],[1,2,3],[0,0,0]])
   end  
 
 describe "Suma de Matrices" do
@@ -34,11 +35,18 @@ describe "Suma de matrices con fracciones" do
 	end
 
 end
-describe "Multiplicacion de fracciones" do
-	it "Se debe multiplicar fracciones correctamente" do
-	@resultado = @matriz4 * @matriz5
-      	@resultado.should == Matriz.new([[ Fraccion.new(5,12) , Fraccion.new(7,30)],[Fraccion.new(7,20), Fraccion.new(31,150)]])
-	end
 
+describe "Se suma la matrices densa y dispersa" do
+	it "Se deben sumar matrices  correctamente" do
+	@resultado = @matriz_dispersa + @matriz_densa
+      	@resultado.should == Matriz.new([[0,0,0],[1,2,3],[0,0,0]])
 end
+
+
+describe "Se multiplcar la matrices densas" do
+	it "Se deben multiplicar matrices correctamente" do
+	@resultado = @matriz_dispersa * @matriz_densa
+      	@resultado.should == Matriz.new([[0,0,0],[0,0,0],[0,0,0]])
+end
+
 end
