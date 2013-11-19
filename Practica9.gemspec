@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Practica9::VERSION
   spec.authors       = ["Abraham and Christian"]
   spec.email         = ["abrahamblg@hotmail.es and christian-siedler@hotmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Matrices densas y dispersas}
+  spec.summary       = %q{MAtrices densas y dispersas. Sobrecargadas las operaciones }
   spec.homepage      = ""
   spec.license       = "MIT"
 
