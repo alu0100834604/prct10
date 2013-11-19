@@ -132,31 +132,28 @@ end
 
 end
 
+# ------------------------------------------------------------- 
+#                      Matriz dispersa                        -
+#--------------------------------------------------------------
 class MatrizDispersa < Matriz
 	attr_reader :hash_no_nulos
 	def initialize(matriz_entrada)
-#puts(matriz_entrada[0].class)
-#if(matriz_entrada.is_a?Map)
-#puts("mapa-...ss")
-#@hash_no_nulos = matriz_entrada;
-#i,j = 0
-#matriz_entrada.each do |key,val|
-#puts key
-#end
-#else
-		puts(matriz_entrada.class)
+		#puts(matriz_entrada.class)
 		if(matriz_entrada.is_a?Hash)
-			@hash_no_nulos = matriz_entrada;
+			@hash_no_nulos = {};
 			i = 0
 			j = 0
 			matriz_entrada.each do |key,val|
 				arr_key = key.split("-");
-				puts(arr_key)
+				#puts(arr_key)
 				if(arr_key[0].to_i > i)
 					i = arr_key[0].to_i
 				end
 				if(arr_key[1].to_i > j)
 					j = arr_key[1].to_i
+				end
+				if(val != 0 && val != nil)
+					@hash_no_nulos[key] = val;
 				end
 			end
 			@filas = i
@@ -167,22 +164,49 @@ class MatrizDispersa < Matriz
 			@columnas = matriz_entrada[0].length
 			for i in 0...@filas
 				for j in 0...@columnas
-					@hash_no_nulos[i.to_s+"-"+j.to_s] = matriz_entrada[i][j]
+					if(matriz_entrada[i][j] != 0)
+						@hash_no_nulos[i.to_s+"-"+j.to_s] = matriz_entrada[i][j]
+					end
 				end
 			end
 		end
 	end
 
 	def []=(i,j,x)
-	   @hash_no_nulos[i.to_s+"-"+j.to_s] = x
+		if(x != 0)
+	   		@hash_no_nulos[i.to_s+"-"+j.to_s] = x
+		end
 	end
 
 	def [](i,j)
-	  @hash_no_nulos[i.to_s+"-"+j.to_s]
+	  val = @hash_no_nulos[i.to_s+"-"+j.to_s]
+	  val = (val == nil)?0:val
+	end
+
+	def to_Densa()
+	   	matriz =  Array.new(@filas){Array.new(@columnas)}
+	   	for i in 0...@filas
+	       		for j in 0...@columnas
+		  		matriz[i][j] = self.[](i,j)
+	       		end
+	   	end
+		return MatrizDensa.new(matriz)
+	end
+
+	def comprobar_tipo_return()
+		if(porcentaje_ceros < 0.6)
+			return matriz
+		elsif
+			to_Densa()
+		end
+	end
+
+	def porcentaje_ceros()
+		return(Float(@hash_no_nulos.legth)/@filas*@columnas)
 	end
 
 	def +(other)
-		puts(other.class)
+		#puts(other.class)
 		#devolucion = Matriz
 		if((other.is_a?MatrizDensa))
 			filas_final = @filas
@@ -236,12 +260,52 @@ class MatrizDispersa < Matriz
                         
 	 		return MatrizDensa.new(resultado)
                elsif(other.is_a?MatrizDispersa)
-               		return MatrizDispersa.new(resultado)
+			filas_final = @filas
+			columnas_final = @columnas
+			resultado2 = {}
+			 dimensiones=[[@filas, @columnas],[other.filas, other.columnas]]
+			for i in 0...@filas
+                		for j in 0...@columnas
+                        		temp = Array.new(dimensiones[0][0])
+                        		val1 = self.[](i,0)
+		                        val2 = other.[](0,j)
+					
+					temp[0] = val1 * val2;
+		                        for k in 1...@columnas
+	                                	val1 = self.[](i,k)
+		                                val2 = other.[](k,j)
+						temp2 =  val1 * val2
+		                                temp[k] = temp2
+	                        	end
+	                        	tmp_reduced = temp.reduce(:+)
+                        	 	if( tmp_reduced != nil)
+						resultado2[i.to_s+"-"+j.to_s] = tmp_reduced
+					end
+                        	end
+                        end
+                        
+	 		return MatrizDispersa.new(resultado2)
                end	
         end
 end
 
+# ------------------------------------------------------------- 
+#                      Matriz densa                           -
+#--------------------------------------------------------------
+
 class MatrizDensa < Matriz
+
+	def to_Dispersa()
+		return MatrizDispersa.new(@matriz)
+	end
+
+	def comprobar_tipo_return()
+		if(porcentaje_ceros >= 0.6)
+			return matriz
+		elsif
+			to_Dispersa()
+		end
+	end
 
 	def +(other)
 		#puts(other.class)
@@ -257,7 +321,7 @@ class MatrizDensa < Matriz
 			end
 			return MatrizDensa.New(Matriz.new(resultado))						
 		elsif(other.is_a?MatrizDensa)
-			muestra_matriz(@matriz)
+			#muestra_matriz(@matriz)
 			filas_final = @filas
 			columnas_final = @columnas
 			resultado = Array.new(filas_final){Array.new(columnas_final, 0)}
@@ -275,16 +339,16 @@ class MatrizDensa < Matriz
 			filas_final = @filas
 			columnas_final = @columnas
 			resultado = Array.new(filas_final){Array.new(columnas_final, 0)}
-			 dimensiones=[[@filas, @columnas],[other.filas, other.columnas]]
+			dimensiones=[[@filas, @columnas],[other.filas, other.columnas]]
 			for i in 0...@filas
                 		for j in 0...@columnas
                         		temp = Array.new(dimensiones[0][0])
-                        		val1 = @matriz[i][0]
+                        		val1 = self.[](i,0)
 		                        val2 = other.[](0,j)
 					
 					temp[0] = val1 * val2;
 		                        for k in 1...@columnas
-	                                	val1 = @matriz[i][k]
+	                                	val1 = self.[](i,k)
 		                                val2 = other.[](k,j)
 						temp2 =  val1 * val2
 		                                temp[k] = temp2
