@@ -170,5 +170,39 @@ class MatrizDispersa < Matriz
 end
 
 class MatrizDensa < Matriz
-		
+		def initialize(matriz_entrada)
+		@hash_no_nulos = {}
+		@filas = matriz_entrada.length
+		@columnas = matriz_entrada[0].length
+		for i in 0...@filas
+			for j in 0...@columnas
+				@hash_no_nulos[i.to_s+"-"+j.to_s] = matriz_entrada[i][j]
+			end
+		end
+	end
+
+	def []=(i,j,x)
+	   @hash_no_nulos[i.to_s+"-"+j.to_s] = x
+	end
+
+	def [](i,j)
+	  @hash_no_nulos[i.to_s+"-"+j.to_s]
+	end
+
+	def +(other)
+		puts(other.class)
+		#devolucion = Matriz
+		if((other.is_a?MatrizDispersa))
+			filas_final = @filas
+			columnas_final = @columnas
+			resultado = Array.new(filas_final){Array.new(columnas_final, 0)}
+			for i in 0...@filas
+				for j in 0...@columnas
+					resultado[i][j] = other.[](i,j) + @matriz[i][j]
+				end 
+			end
+			return MatrizDensa.New(Matriz.new(resultado))						
+		elsif(other.is_a?MatrizDensa)
+		end
+	end	
 end
