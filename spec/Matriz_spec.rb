@@ -65,6 +65,13 @@ describe "Se multiplcar la matrice dispersa y densa" do
         end
 end
 
+describe "Se multiplcar las matrices densa y dispersa" do
+	it "Se deben multiplicar la matrice dispersa y densa" do
+	@resultado = @matriz_densa * @matriz_dispersa
+      	@resultado.should == MatrizDensa.new([[0,0,0],[2,4,6],[1,2,3]])
+        end
+end
+
 describe "Se deben multiplar las matrices densas" do
 	it "Se deben multiplicar las matrices densas" do
 	@resultado = @matriz_densa * @matriz_densa
@@ -74,7 +81,7 @@ end
 
 describe "Se deben multiplar las matrices dispersas" do
 	it "Se deben multplicar las matrices dispersas" do
-	@resultado = @matriz_dispersas * @matriz_dispersas
+	@resultado = @matriz_dispersa * @matriz_dispersa
       	@resultado.should == MatrizDispersa.new([[0,0,0],[2,4,6],[0,0,0]])
         end
 end
