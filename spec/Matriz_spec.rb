@@ -34,7 +34,7 @@ describe "Suma de matrices con fracciones" do
       	@resultado.should == Matriz.new([[ Fraccion.new(1,1) , Fraccion.new(2,3)],[Fraccion.new(1,1), Fraccion.new(2,5)]])
 	end
 end
-end
+
 
 describe "Se suma la matrices densa y dispersa" do
 	it "Se deben sumar matrices  correctamente" do
