@@ -47,7 +47,7 @@ end
 describe "Se deben sumar las matrices dispersas" do
 	it "Se deben sumar las matrices dispersas" do
 	@resultado = @matriz_dispersa + @matriz_dispersa
-      	@resultado.should == Matriz.new([[0,0,0],[2,4,6],[0,0,0]])
+      	@resultado.should == MatrizDispersa.new([[0,0,0],[2,4,6],[0,0,0]])
         end
 end
 

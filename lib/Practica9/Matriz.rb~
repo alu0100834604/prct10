@@ -197,7 +197,7 @@ class MatrizDispersa < Matriz
 		elsif(other.is_a?MatrizDispersa)
 			hash_final = {}
 			@hash_no_nulos.each do |key,valor|
-				hash_final[key]=valor
+				hash_final[key]=hash
 			end
 			other.hash_no_nulos.each do |key,valor|
 				valor_final = valor
