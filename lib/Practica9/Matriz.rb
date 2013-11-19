@@ -98,11 +98,23 @@ def == (other)
 	resultado = true
 	for i in 0...@filas
 		for j in 0...@columnas
-			resultado &= (@matriz[i][j] == other[i][j])
+			resultado &= (@matriz[i][j] == other.matriz[i][j])
 		end 
 	end
 	return(resultado)
 end 
+
+def porcentaje_ceros()
+   ceros = 0;
+   for i in 0...@filas
+       for j in 0...@columnas
+          if(@matriz[i][j] == 0)
+		ceros += 1
+          end
+       end
+   end
+   porcentaje = Float(ceros)/(@filas * @columnas)
+end
 
 #def = (m1)
 #   filas = m1.filas
@@ -141,34 +153,22 @@ class MatrizDispersa < Matriz
 
 	def +(other)
 		puts(other.class)
-		
-		if((other.is_a?MatrizDensa) || (other.is_a?Matriz))
+		#devolucion = Matriz
+		if((other.is_a?MatrizDensa))
+			filas_final = @filas
+			columnas_final = @columnas
+			resultado = Array.new(filas_final){Array.new(columnas_final, 0)}
+			for i in 0...@filas
+				for j in 0...@columnas
+					resultado[i][j] = self.[](i,j) +other.matriz[i][j]
+				end 
+			end
+			return MatrizDispersa.New(Matriz.new(resultado))						
 		elsif(other.is_a?MatrizDispersa)
 		end
 	end
 end
 
 class MatrizDensa < Matriz
-def initialize(matriz_entrada)
-		def initialize(matriz_entrada)
-		@hash_no_nulos = {}
-		@filas = matriz_entrada.length
-		@columnas = matriz_entrada[0].length
-		for i in 0...@filas
-			for j in 0...@columnas
-				@hash_no_nulos[i.to_s+"-"+j.to_s] = matriz_entrada[i][j]
-			end
-		end
-	end
-
-	def []=(i,j,x)
-	   @hash_no_nulos[i.to_s+"-"+j.to_s] = x
-	end
-
-	def [](i,j)
-	  @hash_no_nulos[i.to_s+"-"+j.to_s]
-	end
-
-
 		
 end
