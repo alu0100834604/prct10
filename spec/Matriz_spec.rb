@@ -39,7 +39,8 @@ end
 describe "Se suma la matrices densa y dispersa" do
 	it "Se deben sumar matrices  correctamente" do
 	@resultado = @matriz_dispersa + @matriz_densa
-      	@resultado.should == Matriz.new([[0,0,0],[1,2,3],[0,0,0]])
+      	@resultado.should == Matriz.new([[0,0,0],[1,2,3],[1,1,1]])
+      	end
 end
 
 
