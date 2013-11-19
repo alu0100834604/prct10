@@ -198,5 +198,35 @@ class MatrizDensa < Matriz
 			end
 			return MatrizDensa.new(resultado)			
 		end
-	end	
+	end
+	
+	def *(other)
+		if(other.is_a?MatrizDispersa)
+			filas_final = @filas
+			columnas_final = @columnas
+			resultado = Array.new(filas_final){Array.new(columnas_final, 0)}
+			 dimensiones=[[@filas, @columnas],[other.filas, other.columnas]]
+			for i in 0...@filas
+                		for j in 0...@columnas
+                        		temp = Array.new(dimensiones[0][0])
+                        		val1 = @matriz[i][0]
+		                        val2 = other.[](0,j)
+					
+					temp[0] = val1 * val2;
+		                        for k in 1...@columnas
+	                                	val1 = @matriz[i][k]
+		                                val2 = other.[](k,j)
+						temp2 =  val1 * val2
+		                                temp[k] = temp2
+	                        	end
+	                        	resultado[i][j] = temp.reduce(:+)
+                        	 
+                        	end
+                        end
+                        
+	 		return MatrizDensa.new(resultado)
+               elsif(other.is_a?MatrizDensa)
+               		return MatrizDensa.new(resultado)
+               end	
+        end
 end
