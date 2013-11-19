@@ -47,18 +47,18 @@ def *(m2)
         dimensiones=[[@filas, @columnas],[m2.filas, m2.columnas]]
         filas_final = dimensiones[0][0]
         columnas_final = dimensiones[1][1]
-        resultado = Array.new(filas_final){Array.new(columnas_final, 0)}
+        resultado = Array.new(filas_final){Array.new(columnas_final)}
         for i in 0...@filas
                 for j in 0...m2.columnas
                         temp = Array.new(dimensiones[0][0])
-			temp[0] = @matriz[i][0] * val2 = m2[0][j];
+                        val1 = @matriz[i][0]
+                        val2 = m2[0][j]
+			#temp[0] = @matriz[i][0] * m2[0][j];
+			temp[0] = val1 * val2;
                         for k in 1...@columnas
                                 val1 = @matriz[i][k]
-                                val2 = m2[k][j]
+                                val2 = m2.matriz[k][j]
 				temp2 =  val1 * val2
-				puts temp2
-                                #temp[k] += temp2
-				puts(temp[k].class)
                                 temp[k] = temp2
                         end
                         resultado[i][j] = temp.reduce(:+)
@@ -74,7 +74,7 @@ def +(m2)
 	resultado = Array.new(filas_final){Array.new(columnas_final, 0)}
 	for i in 0...@filas
 		for j in 0...@columnas
-			resultado[i][j] = @matriz[i][j] + m2[i][j]
+			resultado[i][j] = @matriz[i][j] +m2.matriz[i][j]
 		end 
 	end
 	return Matriz.new(resultado)
@@ -85,8 +85,9 @@ def []=(i,j,x)
 end
 
 def [](i,j)  
-  @matriz[i]
+  @matriz[i][j]
 end
+
 def [](i)
   @matriz[i]
 end
@@ -119,13 +120,34 @@ end
 end
 
 class MatrizDispersa < Matriz
+	def initialize(matriz_entrada)
+		@hash_no_nulos = {}
+		@filas = matriz_entrada.length
+		@columnas = matriz_entrada[0].length
+		for i in 0...@filas
+			for j in 0...@columnas
+				@hash_no_nulos[i.to_s+"-"+j.to_s] = matriz_entrada[i][j]
+			end
+		end
+	end
+
+	def []=(i,j,x)
+	   @hash_no_nulos[i.to_s+"-"+j.to_s] = x
+	end
+
+	def [](i,j)
+	  @hash_no_nulos[i.to_s+"-"+j.to_s]
+	end
+
 	def +(other)
 		puts(other.class)
-		if((other.class == MatrizDensa) || (other.class = Matriz))
-			puts(other.class)
+		
+		if((other.is_a?MatrizDensa) || (other.is_a?Matriz))
+		elsif(other.is_a?MatrizDispersa)
 		end
 	end
 end
 
 class MatrizDensa < Matriz
+
 end
