@@ -10,7 +10,7 @@ describe Matriz do
     @matriz4 = Matriz.new([[ Fraccion.new(1,2) , Fraccion.new(1,3)],[Fraccion.new(2,4), Fraccion.new(1,5)]])
     @matriz5 = Matriz.new([[ Fraccion.new(1,2) , Fraccion.new(1,3)],[Fraccion.new(2,4), Fraccion.new(1,5)]])
     @matriz_densa = MatrizDensa.new([[0,0,0],[1,2,3],[1,1,1]])
-    @matriz_dispersa MatrizDispersa.new([[0,0,0],[1,2,3],[0,0,0]])
+    @matriz_dispersa = MatrizDispersa.new([[0,0,0],[1,2,3],[0,0,0]])
   end  
 
 describe "Suma de Matrices" do
@@ -48,6 +48,7 @@ describe "Se multiplcar la matrices densas" do
 	it "Se deben multiplicar matrices correctamente" do
 	@resultado = @matriz_dispersa * @matriz_densa
       	@resultado.should == Matriz.new([[0,0,0],[0,0,0],[0,0,0]])
+        end
 end
 
 end
