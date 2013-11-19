@@ -117,3 +117,15 @@ end
 #end
 
 end
+
+class MatrizDispersa < Matriz
+	def +(other)
+		puts(other.class)
+		if((other.class == MatrizDensa) || (other.class = Matriz))
+			puts(other.class)
+		end
+	end
+end
+
+class MatrizDensa < Matriz
+end
