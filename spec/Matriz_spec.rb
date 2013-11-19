@@ -38,7 +38,7 @@ end
 
 describe "Se suma la matrices densa y dispersa" do
 	it "Se deben sumar matrices  correctamente" do
-	@resultado = @matriz_dispersa + @matriz_densa
+	@resultado = @matriz_densa +  @matriz_dispersa
       	@resultado.should == Matriz.new([[0,0,0],[1,2,3],[1,1,1]])
       	end
 end
@@ -48,6 +48,13 @@ describe "Se multiplcar la matrices densas" do
 	it "Se deben multiplicar matrices correctamente" do
 	@resultado = @matriz_dispersa * @matriz_densa
       	@resultado.should == Matriz.new([[0,0,0],[0,0,0],[0,0,0]])
+        end
+end
+
+describe "Se deben sumar matrices dispersas" do
+	it "Se deben sumar matrices dispersas" do
+	@resultado = @matriz_dispersa + @matriz_dispersa
+      	@resultado.should == Matriz.new([[0,0,0],[2,4,6],[0,0,0]])
         end
 end
 
