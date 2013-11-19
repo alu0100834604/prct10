@@ -40,7 +40,7 @@ end
 describe "Se deben sumar matrices densas" do
 	it "Se deben sumar matrices densas" do
 	@resultado = @matriz_densa + @matriz_densa
-      	@resultado.should == Matriz.new([[0,0,0],[2,4,6],[2,2,2]])
+      	@resultado.should == MatrizDensa.new([[0,0,0],[2,4,6],[2,2,2]])
         end
 end
 
