@@ -121,7 +121,7 @@ end
 #   filas = m1.filas
 #   columnas = m1.columnas
 #   matriz =  Array.new(filas){Array.new(columnas)}
-#   for i in 0...filas
+#   for i inº 0...filas
 #       for j in 0...columnas
 #          matriz[i][j] = m1[i][j]
 #       end
@@ -130,6 +130,29 @@ end
    
 #end
 
+def maximo()
+	maximo = matriz[0][0];
+	for i in 0...@filas
+		for j in 0...@columnas
+			if(matriz[i][j] > maximo)
+				maximo = @matriz[i][j]
+			end
+		end
+	end
+	return maximo
+end
+
+def minimo()
+	mimino = matriz[0][0];
+	for i in 0...@filas
+		for j in 0...@columnas
+			if(matriz[i][j] < minimo)
+				maximo = @matriz[i][j]
+			end
+		end
+	end
+	return minimo
+end
 end
 
 # ------------------------------------------------------------- 
@@ -284,6 +307,29 @@ class MatrizDispersa < Matriz
 	 		return MatrizDispersa.new(resultado2).comprobar_tipo_return()
                end	
         end
+
+	def maximo()
+		maximo = nil;
+		@hash_no_nulos.each do |key,valor|
+			if(maximo == nil)
+				maximo = valor
+			elsif (valor > maximo)
+				maximo = valor
+			end
+                end
+		return maximo
+	end
+	def minimo()
+		minimo = nil;
+		@hash_no_nulos.each do |key,valor|
+			if(minimo == nil)
+				minimo = valor
+			elsif (valor < minimo)
+				minimo = valor
+			end
+                end
+		return minimo
+	end
 end
 
 # ------------------------------------------------------------- 
