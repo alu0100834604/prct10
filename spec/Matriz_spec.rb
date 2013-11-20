@@ -14,15 +14,13 @@ describe Matriz do
     @matriz_densa2 = MatrizDensa.new([[0,0,0],[1,2,-3],[-1,-1,-1]])
   end  
 
-describe "Suma de Matrices" do
-    it "Se sumar correctamente" do
+describe "Operaciones basicas con matrices" do
+    it "Se deben sumar correctamente Matrices" do
 	@resultado = @matriz2 + @matriz3
       	@resultado.should == Matriz.new([[6,8],[10,12]]) 
     end
-  end
 
-describe "Multiplicacion de Matrices" do
-	it "Se multiplicar correctamente" do
+	it "Se multiplicar correctamente matrices " do
 	@resultado = @matriz2 * @matriz3
 	@resultado.should == Matriz.new([[19,22],[43,50]])
 	end
@@ -38,59 +36,60 @@ end
 
 
 
-describe "Se deben sumar las matrices densas" do
+describe "Operaciones con matrices densas y dispersas/Sumas" do
 	it "Se deben sumar las matrices densas" do
-	@resultado = @matriz_densa + @matriz_densa
-      	@resultado.should == MatrizDensa.new([[0,0,0],[2,4,6],[2,2,2]])
+		@resultado = @matriz_densa + @matriz_densa
+      		@resultado.should == MatrizDensa.new([[0,0,0],[2,4,6],[2,2,2]])
         end
-end
-
-describe "Se deben sumar las matrices dispersas" do
+	
 	it "Se deben sumar las matrices dispersas" do
-	@resultado = @matriz_dispersa + @matriz_dispersa
-      	@resultado.should == MatrizDispersa.new([[0,0,0],[2,4,6],[0,0,0]])
+		@resultado = @matriz_dispersa + @matriz_dispersa
+      		@resultado.should == MatrizDispersa.new([[0,0,0],[2,4,6],[0,0,0]])
         end
-end
-
-describe "Se deben sumar matrices dispersa y densas" do
+	
 	it "Se deben sumar las matrices dispersa y densa" do
-	@resultado = @matriz_dispersa + @matriz_densa
-      	@resultado.should == MatrizDensa.new([[0,0,0],[2,4,6],[1,1,1]])
+		@resultado = @matriz_dispersa + @matriz_densa
+      		@resultado.should == MatrizDensa.new([[0,0,0],[2,4,6],[1,1,1]])
         end
 end
 
-describe "Se multiplcar la matrice dispersa y densa" do
+describe "Operaciones con matrices densas y dispersas/Multiplicaciones" do
 	it "Se deben multiplicar la matrice dispersa y densa" do
-	@resultado = @matriz_dispersa * @matriz_densa
-      	@resultado.should == MatrizDispersa.new([[0,0,0],[5,7,9],[0,0,0]])
+		@resultado = @matriz_dispersa * @matriz_densa
+      		@resultado.should == MatrizDispersa.new([[0,0,0],[5,7,9],[0,0,0]])
         end
-end
 
-describe "Se multiplcar las matrices densa y dispersa" do
 	it "Se deben multiplicar la matrice dispersa y densa" do
-	@resultado = @matriz_densa * @matriz_dispersa
-      	@resultado.should == MatrizDensa.new([[0,0,0],[2,4,6],[1,2,3]])
+		@resultado = @matriz_densa * @matriz_dispersa
+      		@resultado.should == MatrizDensa.new([[0,0,0],[2,4,6],[1,2,3]])
         end
-end
-
-describe "Se deben multiplar las matrices densas" do
+	
 	it "Se deben multiplicar las matrices densas" do
-	@resultado = @matriz_densa * @matriz_densa
-      	@resultado.should == MatrizDensa.new([[0,0,0],[5,7,9],[2,3,4]])
+		@resultado = @matriz_densa * @matriz_densa
+      		@resultado.should == MatrizDensa.new([[0,0,0],[5,7,9],[2,3,4]])
         end
-end
 
-describe "Se deben multiplar las matrices dispersas" do
 	it "Se deben multplicar las matrices dispersas" do
-	@resultado = @matriz_dispersa * @matriz_dispersa
-      	@resultado.should == MatrizDispersa.new([[0,0,0],[2,4,6],[0,0,0]])
+		@resultado = @matriz_dispersa * @matriz_dispersa
+      		@resultado.should == MatrizDispersa.new([[0,0,0],[2,4,6],[0,0,0]])
         end
 end
 
-describe "Si el resultado de dos matrices densas resulta disperso, usar este" do
+describe "Operaciones con matrices densas y dispersas/Miscelanacea" do
 	it "Si el resultado de dos matrices densas resulta disperso, usar este" do
 	@resultado = @matriz_densa + @matriz_densa2
       	@resultado.should == MatrizDispersa.new([[0, 0, 0], [2, 4, 0], [0, 0, 0]])
+        end
+
+	it "Calculo de maximo/densa" do
+	@resultado = @matriz_densa.maximo()
+      	@resultado.should == 3
+
+        end
+
+	it "Calculo de minimo/dispersa" do
+	@resultado = @matriz_dispersa.minimo()
+      	@resultado.should == 1
         end
 end
 
