@@ -346,7 +346,7 @@ class MatrizDensa < Matriz
 		if(porcentaje_ceros >= 0.6)
 			return self
 		elsif
-			muestra_matriz(@matriz)
+			#muestra_matriz(@matriz)
 			devolucion = MatrizDispersa.new(@matriz)
 			return(devolucion)
 		end
