@@ -11,6 +11,7 @@ class Test_Matriz < Test::Unit::TestCase
 	@densa1    = MatrizDensa.new([[1,2,1],[2,1,3],[3,5,4]])
         @dispersa2 = MatrizDispersa.new([[1,0,0],[0,0,0],[1,0,0]]) 
         @densa2    = MatrizDensa.new([[2,3,1],[9,3,4],[2,7,5]]) 
+	@densa3    = MatrizDensa.new([[-1,-2,-1],[-2,-1,-3],[0,0,0]])
 	end
 
 
@@ -33,6 +34,7 @@ class Test_Matriz < Test::Unit::TestCase
 	
 	assert_equal(true, @dispersa1.is_a?(MatrizDispersa))
 	assert_equal(true, @densa1.is_a?(MatrizDensa))
+	assert_equal(true, (@densa1+@densa3).is_a?(MatrizDispersa))
 
 
 	end
