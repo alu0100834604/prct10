@@ -207,7 +207,7 @@ class MatrizDispersa < Matriz
 	end
 
 	def comprobar_tipo_return()
-		if(porcentaje_ceros < 0.6)
+		if(porcentaje_ceros > 0.6)
 			return self
 		elsif
 		   	matriz =  Array.new(@filas){Array.new(@columnas)}
@@ -338,12 +338,8 @@ end
 
 class MatrizDensa < Matriz
 
-	def to_Dispersa()
-		return MatrizDispersa.new(@matriz)
-	end
-
 	def comprobar_tipo_return()
-		if(porcentaje_ceros >= 0.6)
+		if(porcentaje_ceros < 0.6)
 			return self
 		elsif
 			#muestra_matriz(@matriz)

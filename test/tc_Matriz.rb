@@ -1,6 +1,6 @@
 require "test/unit"
-require "Matriz.rb"
-require "Fraccion.rb"
+require "Practica9/Matriz.rb"
+require "Practica9/Fraccion.rb"
 #require "MatrizDensa.rb"
 #require "MatrizDispersa.rb"
 
@@ -19,10 +19,10 @@ class Test_Matriz < Test::Unit::TestCase
 	def test_Comprobacion
 
 	assert_equal(@dispersa1.filas,3)
-        assert_equal(@dispersa1.cols,3)
+        assert_equal(@dispersa1.columnas,3)
 	 
 	assert_equal(@densa1.filas,3)
-        assert_equal(@densa1.cols,3)
+        assert_equal(@densa1.columnas,3)
 
 	end
 
